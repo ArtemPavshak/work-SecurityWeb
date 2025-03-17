@@ -38,12 +38,12 @@ public class WorkersService {
         return workersRepository.findAll();
     }
 
-    public Workers getWorkerById(Long id) {
-        return workersRepository.findById(String.valueOf(id)).orElse(null);
+    public Workers getWorkerById(String id) {
+        return workersRepository.findById(id).orElse(null);
     }
 
-    public void deleteWorkerById(Long id) {
-        workersRepository.deleteById(String.valueOf(id));
+    public void deleteWorkerById(String id) {
+        workersRepository.deleteById(id);
     }
 
     public Workers createWorker(Workers worker) {

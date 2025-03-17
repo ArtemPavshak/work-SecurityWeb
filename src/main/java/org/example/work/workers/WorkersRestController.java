@@ -31,12 +31,12 @@ public class WorkersRestController {
     }
 
     @GetMapping("/{id}")
-    public Workers getOneWorker(@PathVariable Long id) {
+    public Workers getOneWorker(@PathVariable String id) {
         return workersService.getWorkerById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteWorker(@PathVariable Long id) {
+    public void deleteWorker(@PathVariable String id) {
         workersService.deleteWorkerById(id);
     }
 
@@ -48,5 +48,20 @@ public class WorkersRestController {
     @PutMapping
     public Workers updateWorker(@RequestBody Workers worker) {
         return workersService.updateWorker(worker);
+    }
+
+    @GetMapping("/hello/user")
+    public String helloUser() {
+        return "Hello User!";
+    }
+
+    @GetMapping("hello/admin")
+    public String helloAdmin() {
+        return "Hello Admin!";
+    }
+
+    @GetMapping("hello/unknown")
+    public String helloUnknown() {
+        return "Hello Unknown!";
     }
 }
