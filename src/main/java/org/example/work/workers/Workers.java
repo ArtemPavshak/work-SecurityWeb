@@ -31,7 +31,6 @@ public class Workers {
     private String position;
     private Double salary;
 
-    // Constructor for initialization
     public Workers(String name, String position, Double salary) {
         this.name = name;
         this.position = position;
