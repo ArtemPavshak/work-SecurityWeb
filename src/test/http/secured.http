@@ -1,0 +1,47 @@
+### GET ALL WORKERS
+GET http://localhost:8080/api/v1/workers
+Authorization: Basic admin admin
+Accept: application/json
+
+###
+
+### GET ONE WORKER
+GET http://localhost:8080/api/v1/workers/67d738bc4560785d1cdc1a49
+Authorization: Basic admin admin
+Accept: application/json
+
+###
+
+### DELETE ONE WORKER
+DELETE http://localhost:8080/api/v1/workers/67d855427608991df9dddf2a
+Authorization: Basic admin admin
+Accept: application/json
+
+###
+
+### CREATE ONE WORKER
+POST http://localhost:8080/api/v1/workers
+Authorization: Basic admin admin
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "John Doe",
+  "position": "Software Engineer",
+  "salary": 75000.0
+}
+
+###
+
+### UPDATE ONE WORKER
+PUT http://localhost:8080/api/v1/workers
+Authorization: Basic admin admin
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "2",
+  "name": "Jane Smith",
+  "position": "Senior Software Engineer",
+  "salary": 90000.0
+}
