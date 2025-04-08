@@ -23,7 +23,7 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Workers {
+public class Workers extends AuditMetaData{
 
     @Id
     private String id;
