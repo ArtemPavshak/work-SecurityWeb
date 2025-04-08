@@ -29,9 +29,13 @@ public class WorkersService {
 
     @PostConstruct
     void init() {
-        workers.add(new Workers("John Doe", "Manager", 5000.00));
-        workers.add(new Workers("Jane Smith", "Developer", 4500.00));
-        workersRepository.saveAll(workers);
+        if (workersRepository.count() == 0) {
+            workers = List.of(
+                    new Workers("John Doe", "Manager", 5000.00),
+                    new Workers("Jane Smith", "Developer", 4500.00)
+            );
+            workersRepository.saveAll(workers);
+        }
     }
 
     public List<Workers> getAllWorkers() {
