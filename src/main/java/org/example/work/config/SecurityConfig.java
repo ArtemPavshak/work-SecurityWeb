@@ -13,9 +13,12 @@ package org.example.work.config;/*
   @since 08.04.2025 - 17.33
 */
 
+import org.springframework.aop.Advisor;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,6 +34,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public static Advisor preAuthorizeMethodInterceptor() {
+        return AuthorizationManagerBeforeMethodInterceptor.preAuthorize();
+    }
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -42,7 +51,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/index.html").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/workers").hasAnyRole("ADMIN", "SUPERADMIN", "USER")
+                                /*.requestMatchers(HttpMethod.GET, "/api/v1/workers").hasAnyRole("ADMIN", "SUPERADMIN", "USER")
                                 .requestMatchers(HttpMethod.GET, "/api/v1/workers/{id}").hasAnyRole("ADMIN", "SUPERADMIN", "USER")
                                 .requestMatchers(HttpMethod.POST, "/api/v1/workers").hasAnyRole("ADMIN", "SUPERADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/workers").hasAnyRole("ADMIN", "SUPERADMIN")
@@ -55,7 +64,7 @@ public class SecurityConfig {
 
                                 .requestMatchers("/api/v1/workers/view/profile").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
                                 .requestMatchers("/api/v1/workers/view/dashboard").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/api/v1/workers/view/stats").hasRole("SUPERADMIN")
+                                .requestMatchers("/api/v1/workers/view/stats").hasRole("SUPERADMIN")*/
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
@@ -81,7 +90,6 @@ public class SecurityConfig {
                 .password(passwordEncoder().encode("superadmin"))
                 .roles("SUPERADMIN")
                 .build();
-
 
         return new InMemoryUserDetailsManager(admin, user, superadmin);
     }
